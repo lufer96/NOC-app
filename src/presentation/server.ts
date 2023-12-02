@@ -5,11 +5,16 @@ export class ServerApp {
   public static start() {
     console.log('Server starter...')
 
-    CronService.createJob(
-      '*/5 * * * * *',
-      () => {
-        new CheckService().execute('https://google.com')
-      }
-    )
+    CronService.createJob('*/5 * * * * *', () => {
+      const url = 'https://google.com'
+      new CheckService(
+        () => console.log(`${url} is ok`),
+        (error) => console.log(error)
+      ).execute(url)
+      // new CheckService(
+      //   () => console.log('success'),
+      //   (error) => console.log(error)
+      // ).execute('http://localhost:3000/posts')
+    })
   }
 }
