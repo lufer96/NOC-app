@@ -22,17 +22,17 @@ export class EmailService {
         }
     })
 
+    constructor() {}
+
     async sendEmail(options: SendEmailOptions): Promise<boolean> {
         const { to, subject, htmlBody, attachments = [] } = options
         try {
-            const sentInformation = await this.transporter.sendMail({
+            await this.transporter.sendMail({
                 to,
                 subject,
                 html: htmlBody,
                 attachments
             })
-
-            console.log({ sentInformation })
 
             return true
         } catch (error) {
